@@ -1,0 +1,17 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Resources:
+  S3ReplicaRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: amandaReplicaRole
+      Path: "/"
+      Policies: []
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Action:
+          - sts:AssumeRole
+          Effect: Allow
+          Principal:
+            Service:
+            - s3.amazonaws.com

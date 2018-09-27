@@ -1,0 +1,25 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Resources:
+  amandaBucket:
+   Type: AWS::S3::Bucket
+   Properties:
+     ReplicationConfiguration:
+       Rules:
+       - Status: Enabled
+         Prefix: ''
+         SourceSelectionCriteria:
+           SseKmsEncryptedObjects: 
+             Status: Enabled
+         Destination:
+            Bucket: arn:aws:s3:::amanda-s3-bucket-west-test
+            EncryptionConfiguration:
+              ReplicaKmsKeyID: arn:aws:kms:us-west-2:596174305461:key/827ce220-86b9-43c4-952e-188225d5ac72
+       Role: arn:aws:iam::596174305461:role/amandaReplicaRole
+     BucketName: amanda-s3-bucket-test
+     BucketEncryption:
+       ServerSideEncryptionConfiguration:
+       - ServerSideEncryptionByDefault:
+           SSEAlgorithm: aws:kms
+           KMSMasterKeyID: a60a0d53-690c-4f6f-8315-5ff149807f33
+     VersioningConfiguration:
+       Status: Enabled 
